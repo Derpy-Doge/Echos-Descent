@@ -9,6 +9,10 @@ public class PlatformerMovement : MonoBehaviour
     private Rigidbody2D rb2d;
     private float _movement;
 
+    public bool isGrounded;
+
+    public GameObject boxRef;
+
     void Awake()
     {
        rb2d = GetComponent<Rigidbody2D>();
@@ -19,6 +23,21 @@ public class PlatformerMovement : MonoBehaviour
     {
         rb2d.linearVelocityX = _movement;
 
+        RaycastHit2D hitInfo;
+        Vector2 boxsize = new Vector2(0.25f, 0.1f);
+        hitInfo = Physics2D.BoxCast(boxRef.transform.position, boxsize, 0f, Vector2.down, 0.1f, LayerMask.GetMask("Grounded"));
+
+        boxRef.transform.localScale = boxsize;
+        if (hitInfo)
+        {
+            Debug.Log("Grounded" + hitInfo.transform.gameObject.name);
+            isGrounded = true;
+        }
+        else
+        {
+            Debug.Log("Not Grounded");
+            isGrounded = false;
+        }
     }
 
     public void Move(InputAction.CallbackContext ctx)
@@ -28,12 +47,12 @@ public class PlatformerMovement : MonoBehaviour
 
     public void Jump(InputAction.CallbackContext ctx)
     {
-        if (ctx.ReadValue<float>() == 1)
+        if (ctx.ReadValue<float>() == 1 && isGrounded)
         {
-        rb2d.linearVelocityY = JumpHeight;
+            rb2d.linearVelocityY = JumpHeight;
         }
     }
 
-   
+
 }
 
