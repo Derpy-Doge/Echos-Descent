@@ -11,6 +11,8 @@ public class PlatformerMovement : MonoBehaviour
 
     public bool isGrounded;
 
+    private bool canJump;
+
     public GameObject boxRef;
 
     void Awake()
@@ -38,6 +40,11 @@ public class PlatformerMovement : MonoBehaviour
             Debug.Log("Not Grounded");
             isGrounded = false;
         }
+
+        if (isGrounded)
+        {
+            canJump = true;
+        }
     }
 
     public void Move(InputAction.CallbackContext ctx)
@@ -47,9 +54,11 @@ public class PlatformerMovement : MonoBehaviour
 
     public void Jump(InputAction.CallbackContext ctx)
     {
-        if (ctx.ReadValue<float>() == 1 && isGrounded)
+        if (ctx.ReadValue<float>() == 1 && canJump)
         {
             rb2d.linearVelocityY = JumpHeight;
+
+            canJump = false;
         }
     }
 
