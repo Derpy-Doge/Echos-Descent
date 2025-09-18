@@ -1,19 +1,19 @@
 fileFormatVersion: 2
-guid: 185d34dd30cbf6949b5119959b8bf194
+guid: 9b912a0057489134abdd162a0770505e
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 6878914107080362144
-    second: echo spritesheet_0
+      213: 4752843715885475355
+    second: i promise this is the last echo spritesheet_0
   - first:
-      213: -3040002430487952469
-    second: echo spritesheet_1
+      213: -3502875687972818531
+    second: i promise this is the last echo spritesheet_1
   - first:
-      213: 4707273555968406578
-    second: echo spritesheet_2
+      213: 3119557448480428170
+    second: i promise this is the last echo spritesheet_2
   - first:
-      213: 2683577312738297251
-    second: echo spritesheet_3
+      213: -4709295889553594607
+    second: i promise this is the last echo spritesheet_3
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -84,7 +84,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -135,13 +135,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: echo spritesheet_0
+      name: i promise this is the last echo spritesheet_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 69
+        y: 35
         width: 32
-        height: 59
+        height: 29
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -150,64 +150,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 0a8c2f03fefc67f50800000000000000
-      internalID: 6878914107080362144
+      spriteID: b162d4e8d2e75f140800000000000000
+      internalID: 4752843715885475355
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: echo spritesheet_1
+      name: i promise this is the last echo spritesheet_1
       rect:
         serializedVersion: 2
-        x: 31
-        y: 70
-        width: 33
-        height: 58
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: ba3017665edbfc5d0800000000000000
-      internalID: -3040002430487952469
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: echo spritesheet_2
-      rect:
-        serializedVersion: 2
-        x: 63
-        y: 70
-        width: 33
-        height: 31
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 2343614eb58935140800000000000000
-      internalID: 4707273555968406578
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: echo spritesheet_3
-      rect:
-        serializedVersion: 2
-        x: 95
-        y: 70
+        x: 32
+        y: 35
         width: 32
-        height: 31
+        height: 29
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -216,8 +172,96 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 3a54015095bfd3520800000000000000
-      internalID: 2683577312738297251
+      spriteID: d91370eee19436fc0800000000000000
+      internalID: -3502875687972818531
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: i promise this is the last echo spritesheet_2
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 6
+        width: 32
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a809915a8f4ea4b20800000000000000
+      internalID: 3119557448480428170
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: i promise this is the last echo spritesheet_3
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 6
+        width: 32
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 11763f0e65835aeb0800000000000000
+      internalID: -4709295889553594607
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: i promise this is the last echo spritesheet_4
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 6
+        width: 32
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6e1ceed3d1b77e8499b7e77268c3d8ca
+      internalID: 862481712
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: i promise this is the last echo spritesheet_5
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 6
+        width: 32
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 87463cf99f877514f895d867b24baaca
+      internalID: -63878447
       vertices: []
       indices: 
       edges: []
@@ -226,7 +270,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 2cdbabb0ce103554fa4bc61ccd59d5ce
     internalID: 0
     vertices: []
     indices: 
@@ -236,10 +280,12 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      echo spritesheet_0: 6878914107080362144
-      echo spritesheet_1: -3040002430487952469
-      echo spritesheet_2: 4707273555968406578
-      echo spritesheet_3: 2683577312738297251
+      i promise this is the last echo spritesheet_0: 4752843715885475355
+      i promise this is the last echo spritesheet_1: -3502875687972818531
+      i promise this is the last echo spritesheet_2: 3119557448480428170
+      i promise this is the last echo spritesheet_3: -4709295889553594607
+      i promise this is the last echo spritesheet_4: 862481712
+      i promise this is the last echo spritesheet_5: -63878447
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
