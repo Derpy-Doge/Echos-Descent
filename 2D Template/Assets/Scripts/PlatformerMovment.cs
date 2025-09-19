@@ -28,10 +28,11 @@ public class PlatformerMovement : MonoBehaviour
 
     [SerializeField] private Transform wallCheck;
     [SerializeField] private LayerMask wallLayer;
+    [SerializeField] public Animator animator;
 
     void Awake()
     {
-       rb2d = GetComponent<Rigidbody2D>();
+        rb2d = GetComponent<Rigidbody2D>();
     }
 
     // Update is called once per frame
@@ -62,6 +63,16 @@ public class PlatformerMovement : MonoBehaviour
 
         WallSlide();
         WallJump();
+
+        float input = Input.GetAxis("Horizontal");
+        if (input != 0)
+        {
+            animator.SetBool("isWalking", true);
+        }
+        else
+        {
+            animator.SetBool("isWalking", false);
+        }
     }
 
 
@@ -105,7 +116,7 @@ public class PlatformerMovement : MonoBehaviour
             isWallJumping = false;
             wallJumpDirection = -transform.localScale.x;
             wallJumpCounter = wallJumpTime;
-            
+
             CancelInvoke(nameof(StopWallJumping));
         }
         else
@@ -118,7 +129,7 @@ public class PlatformerMovement : MonoBehaviour
             isWallJumping = true;
             rb2d.linearVelocity = new Vector2(wallJumpDirection * wallJumpPower.x, wallJumpPower.y);
             wallJumpCounter = 0f;
-            
+
             if (transform.localScale.x != wallJumpDirection)
             {
                 isFacingRight = !isFacingRight;
@@ -137,6 +148,5 @@ public class PlatformerMovement : MonoBehaviour
     {
         isWallJumping = false;
     }
-    
-}
 
+}

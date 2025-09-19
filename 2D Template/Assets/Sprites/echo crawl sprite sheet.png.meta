@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: c392fcdce4cf3784aa416eaf639f53c9
+guid: 3239bb644e76fda469732db6d9b6b7a0
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -5373493503909070115
-    second: Echo crawl spritesheet_0
+      213: 1492753850818719210
+    second: echo crawl sprite sheet_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -109,40 +109,137 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 4
-    buildTarget: WebGL
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Echo crawl spritesheet_0
+      name: echo crawl sprite sheet 3_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 0
-        width: 192
-        height: 34
+        y: 17
+        width: 48
+        height: 17
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: dda71a0d0248d65b0800000000000000
-      internalID: -5373493503909070115
+      spriteID: 961d55796832e8f4d91acccde554105b
+      internalID: -105484420
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: echo crawl sprite sheet 3_1
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 17
+        width: 48
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2edab90f24ec8f04e862f9a4264a5b55
+      internalID: -1210512836
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: echo crawl sprite sheet 3_2
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 48
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d524cfe08c7965743baa232089cd6ff5
+      internalID: 947156270
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: echo crawl sprite sheet 3_3
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 0
+        width: 48
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6f0fbf324ced936448154405ddcd444d
+      internalID: -1020217437
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: echo crawl sprite sheet 3_4
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 0
+        width: 48
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 23e37ee23d6c85f47bf2640486f087da
+      internalID: 1817581410
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: echo crawl sprite sheet 3_5
+      rect:
+        serializedVersion: 2
+        x: 144
+        y: 0
+        width: 48
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3e6c0734c86865e488a48d54a461a644
+      internalID: -2121904751
       vertices: []
       indices: 
       edges: []
@@ -151,7 +248,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: a3e14b22df28a78428b11e671f2c8137
     internalID: 0
     vertices: []
     indices: 
@@ -161,7 +258,12 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Echo crawl spritesheet_0: -5373493503909070115
+      echo crawl sprite sheet 3_0: -105484420
+      echo crawl sprite sheet 3_1: -1210512836
+      echo crawl sprite sheet 3_2: 947156270
+      echo crawl sprite sheet 3_3: -1020217437
+      echo crawl sprite sheet 3_4: 1817581410
+      echo crawl sprite sheet 3_5: -2121904751
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
