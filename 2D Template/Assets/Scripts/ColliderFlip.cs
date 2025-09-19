@@ -2,15 +2,37 @@ using UnityEngine;
 
 public class ColliderFlip : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public BoxCollider2D leftCollider;
+    public BoxCollider2D rightCollider;
+    private SpriteRenderer spriteRenderer;
+
+   void Start()
     {
-        
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        if (spriteRenderer.flipX)
+        {
+            leftCollider.enabled = true;
+            rightCollider.enabled = false;
+        }
+        else
+        {
+            leftCollider.enabled = false;
+            rightCollider.enabled = true;
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if (spriteRenderer.flipX)
+        {
+            leftCollider.enabled = true;
+            rightCollider.enabled = false;
+        }
+        else
+        {
+            leftCollider.enabled = false;  
+            rightCollider.enabled = true;
+        }
     }
 }

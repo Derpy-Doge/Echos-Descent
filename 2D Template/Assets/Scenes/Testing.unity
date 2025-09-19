@@ -1904,6 +1904,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52d7f8d74cff0a24bac1ed9bed17036a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  leftCollider: {fileID: 1083779599}
+  rightCollider: {fileID: 1083779594}
   spriteRenderer: {fileID: 1083779595}
 --- !u!95 &1083779598
 Animator:
