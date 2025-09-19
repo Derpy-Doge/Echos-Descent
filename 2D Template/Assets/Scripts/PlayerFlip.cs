@@ -5,7 +5,10 @@ public class PlayerFlip : MonoBehaviour
 {
     public BoxCollider2D leftCollider;
     public BoxCollider2D rightCollider;
-    public GameObject obectToggle;
+    public GameObject leftWallToggle;
+    public GameObject rightWallToggle;
+    public GameObject leftBoxrefToggle;
+    public GameObject rightBoxrefToggle;
 
     void Start()
     {
@@ -30,9 +33,19 @@ public class PlayerFlip : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (leftCollider.enabled = true)
         {
-            obectToggle.SetActive(!obectToggle.activeSelf);
+            leftBoxrefToggle.SetActive(true);
+            leftWallToggle.SetActive(true);
+            rightBoxrefToggle.SetActive(false);
+            rightWallToggle.SetActive(false);
+        }
+        else
+        {
+            leftBoxrefToggle.SetActive(false);
+            leftWallToggle.SetActive(false);
+            rightBoxrefToggle.SetActive(true);
+            rightWallToggle.SetActive(true);
         }
 
         if (spriteRenderer.flipX)
