@@ -13,11 +13,10 @@ public class PlayerFlip : MonoBehaviour
     {
         horizontalInput = Input.GetAxis("Horizontal");
 
-       
         SetupDirectionByComponent();
     }
 
-    private void SetupDirectionByScale()
+    private void SetupDirectionByScale() // breaks with wall jump
     {
         if(horizontalInput < 0 && facingLeft || horizontalInput > 0 && !facingLeft)
         {
@@ -41,8 +40,12 @@ public class PlayerFlip : MonoBehaviour
 
     }
 
-    private void SetupDirectionByRotation()
+    private void SetupDirectionByRotation() // flips whole screen :(
     {
-        if (horizontalInput < 0 && facingLeft || horizontalInput > 0 && !facingLeft) ; 
+        if (horizontalInput < 0 && facingLeft || horizontalInput > 0 && !facingLeft)
+        {
+            facingLeft = !facingLeft;
+            transform.Rotate(new Vector3(0,180,0));
+        }
     }
 }
