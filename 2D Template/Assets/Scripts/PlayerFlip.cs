@@ -32,7 +32,7 @@ public class PlayerFlip : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-
+            obectToggle.SetActive(!obectToggle.activeSelf);
         }
 
         if (spriteRenderer.flipX)
