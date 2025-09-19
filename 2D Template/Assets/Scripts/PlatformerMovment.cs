@@ -26,6 +26,9 @@ public class PlatformerMovement : MonoBehaviour
     private float wallJumpingDuration = 0.4f;
     private Vector2 wallJumpPower = new Vector2(8f, 16f);
 
+    private bool isCrawling;
+
+
     [SerializeField] private Transform wallCheck;
     [SerializeField] private LayerMask wallLayer;
     [SerializeField] public Animator animator;
@@ -109,6 +112,21 @@ public class PlatformerMovement : MonoBehaviour
         }
     }
 
+    public void Crawl(InputAction.CallbackContext ctx)
+    { 
+        if(ctx.ReadValue<float>() == 1)
+        {
+            isCrawling = true;
+            animator.SetBool("isCrawling", true);
+            GetComponent<BoxCollider2D>().size = new Vector2(2f, 1f);
+        }
+        else
+        {
+            isCrawling = false;
+            animator.SetBool("isCrawling", false);
+            GetComponent<BoxCollider2D>().size = new Vector2(1f, 2f);
+        }
+    }
     private void WallJump()
     {
         if (isWallSliding)
