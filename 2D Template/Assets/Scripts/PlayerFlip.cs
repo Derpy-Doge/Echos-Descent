@@ -5,6 +5,7 @@ public class PlayerFlip : MonoBehaviour
 {
     public BoxCollider2D leftCollider;
     public BoxCollider2D rightCollider;
+    public GameObject obectToggle;
 
     void Start()
     {
@@ -29,6 +30,11 @@ public class PlayerFlip : MonoBehaviour
 
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+
+        }
+
         if (spriteRenderer.flipX)
         {
             leftCollider.enabled = true;

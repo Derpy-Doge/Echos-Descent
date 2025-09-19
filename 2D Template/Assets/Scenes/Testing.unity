@@ -1805,7 +1805,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: -0.39, y: 0.022}
+  m_Offset: {x: -0.39, y: 0.02}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -1906,6 +1906,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   leftCollider: {fileID: 1083779599}
   rightCollider: {fileID: 1083779594}
+  obectToggle: {fileID: 0}
   spriteRenderer: {fileID: 1083779595}
 --- !u!95 &1083779598
 Animator:
@@ -1963,7 +1964,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0.39, y: 0.022}
+  m_Offset: {x: 0.39, y: 0.02}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
