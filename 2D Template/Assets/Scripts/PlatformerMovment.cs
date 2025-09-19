@@ -124,7 +124,7 @@ public class PlatformerMovement : MonoBehaviour
         {
             isCrawling = false;
             animator.SetBool("isCrawling", false);
-            GetComponent<BoxCollider2D>().size = new Vector2(1f, 2f);
+            GetComponent<BoxCollider2D>().size = new Vector2(0.7f, 1.829f);
         }
     }
     private void WallJump()
