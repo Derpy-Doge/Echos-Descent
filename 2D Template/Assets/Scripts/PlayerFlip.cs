@@ -6,9 +6,6 @@ public class PlayerFlip : MonoBehaviour
     public BoxCollider2D leftCollider;
     public BoxCollider2D rightCollider;
 
-    public GameObject leftWallToggle;
-    public GameObject rightWallToggle;
-
     public GameObject leftBoxrefToggle;
     public GameObject rightBoxrefToggle;
 
@@ -27,9 +24,7 @@ public class PlayerFlip : MonoBehaviour
         }
 
         leftBoxrefToggle.SetActive(true);
-        leftWallToggle.SetActive(true);
         rightBoxrefToggle.SetActive(false);
-        rightWallToggle.SetActive(false);
     }
 
     [SerializeField] 
@@ -50,6 +45,8 @@ public class PlayerFlip : MonoBehaviour
             leftCollider.enabled = false;
             rightCollider.enabled = true;
         }
+
+        
 
         horizontalInput = Input.GetAxis("Horizontal");
 
@@ -73,18 +70,16 @@ public class PlayerFlip : MonoBehaviour
         if (horizontalInput < 0)
         {
             leftBoxrefToggle.SetActive(true);
-            leftWallToggle.SetActive(true);
             rightBoxrefToggle.SetActive(false);
-            rightWallToggle.SetActive(false);
         }
         else if (horizontalInput > 0)
         {
             leftBoxrefToggle.SetActive(false);
-            leftWallToggle.SetActive(false);
             rightBoxrefToggle.SetActive(true);
-            rightWallToggle.SetActive(true);
         }
     }
+
+    
 
     private void SetupDirectionByComponent()
     {

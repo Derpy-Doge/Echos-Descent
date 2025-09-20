@@ -5,6 +5,7 @@ public class PlatformerMovement : MonoBehaviour
 {
     public float moveSpeed;
     public float JumpHeight;
+    public WallCheckFlip wcf;
 
     private Rigidbody2D rb2d;
     private float _movement;
@@ -28,29 +29,26 @@ public class PlatformerMovement : MonoBehaviour
 
     private bool isCrawling;
 
-
     [SerializeField] private Transform wallCheck;
     [SerializeField] private LayerMask wallLayer;
     [SerializeField] public Animator animator;
+    [SerializeField] public SpriteRenderer spriteRenderer;
 
     void Awake()
     {
         rb2d = GetComponent<Rigidbody2D>();
     }
 
-    // Update is called once per frame
     void Update()
     {
         rb2d.linearVelocityX = _movement;
 
-        RaycastHit2D hitInfo;
         Vector2 boxsize = new Vector2(0.25f, 0.1f);
-        hitInfo = Physics2D.BoxCast(boxRef.transform.position, boxsize, 0f, Vector2.down, 0.1f, LayerMask.GetMask("Grounded"));
-
+        bool overlap = Physics2D.OverlapBox(boxRef.transform.position, boxsize, 0f, LayerMask.GetMask("Grounded"));
         boxRef.transform.localScale = boxsize;
-        if (hitInfo)
+        if (overlap)
         {
-            Debug.Log("Grounded" + hitInfo.transform.gameObject.name);
+            Debug.Log("Grounded");
             isGrounded = true;
         }
         else
@@ -77,7 +75,6 @@ public class PlatformerMovement : MonoBehaviour
             animator.SetBool("isWalking", false);
         }
     }
-
 
     private bool IsWalled()
     {
@@ -107,14 +104,13 @@ public class PlatformerMovement : MonoBehaviour
         if (ctx.ReadValue<float>() == 1 && canJump)
         {
             rb2d.linearVelocityY = JumpHeight;
-
             canJump = false;
         }
     }
 
     public void Crawl(InputAction.CallbackContext ctx)
-    { 
-        if(ctx.ReadValue<float>() == 1)
+    {
+        if (ctx.ReadValue<float>() == 1)
         {
             isCrawling = true;
             animator.SetBool("isCrawling", true);
@@ -127,6 +123,7 @@ public class PlatformerMovement : MonoBehaviour
             GetComponent<BoxCollider2D>().size = new Vector2(0.7f, 1.829f);
         }
     }
+
     private void WallJump()
     {
         if (isWallSliding)
@@ -134,7 +131,6 @@ public class PlatformerMovement : MonoBehaviour
             isWallJumping = false;
             wallJumpDirection = -transform.localScale.x;
             wallJumpCounter = wallJumpTime;
-
             CancelInvoke(nameof(StopWallJumping));
         }
         else
@@ -151,20 +147,24 @@ public class PlatformerMovement : MonoBehaviour
             if (transform.localScale.x != wallJumpDirection)
             {
                 isFacingRight = !isFacingRight;
-                Vector3 localScale = transform.localScale;
-                localScale.x *= -1f;
-                transform.localScale = localScale;
+                spriteRenderer.flipX = true;
+                
+                if (isFacingRight)
+                {
+                    wcf.Flip(true);
+                }
+                else if (!isFacingRight)
+                {
+                    wcf.Flip(false);
+                }
             }
 
             Invoke(nameof(StopWallJumping), wallJumpingDuration);
-
         }
-
     }
 
     private void StopWallJumping()
     {
         isWallJumping = false;
     }
-
 }
