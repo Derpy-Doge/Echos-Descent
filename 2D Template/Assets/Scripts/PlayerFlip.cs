@@ -5,8 +5,10 @@ public class PlayerFlip : MonoBehaviour
 {
     public BoxCollider2D leftCollider;
     public BoxCollider2D rightCollider;
+
     public GameObject leftWallToggle;
     public GameObject rightWallToggle;
+
     public GameObject leftBoxrefToggle;
     public GameObject rightBoxrefToggle;
 
@@ -23,6 +25,11 @@ public class PlayerFlip : MonoBehaviour
             leftCollider.enabled = false;
             rightCollider.enabled = true;
         }
+
+        leftBoxrefToggle.SetActive(true);
+        leftWallToggle.SetActive(true);
+        rightBoxrefToggle.SetActive(false);
+        rightWallToggle.SetActive(false);
     }
 
     [SerializeField] 
@@ -33,21 +40,6 @@ public class PlayerFlip : MonoBehaviour
 
     void Update()
     {
-        if (leftCollider.enabled = true)
-        {
-            leftBoxrefToggle.SetActive(true);
-            leftWallToggle.SetActive(true);
-            rightBoxrefToggle.SetActive(false);
-            rightWallToggle.SetActive(false);
-        }
-        else
-        {
-            leftBoxrefToggle.SetActive(false);
-            leftWallToggle.SetActive(false);
-            rightBoxrefToggle.SetActive(true);
-            rightWallToggle.SetActive(true);
-        }
-
         if (spriteRenderer.flipX)
         {
             leftCollider.enabled = true;
@@ -62,6 +54,7 @@ public class PlayerFlip : MonoBehaviour
         horizontalInput = Input.GetAxis("Horizontal");
 
         SetupDirectionByComponent();
+        FlipColliderWhenTurn();
     }
 
     private void SetupDirectionByScale() // breaks with wall jump
@@ -72,6 +65,24 @@ public class PlayerFlip : MonoBehaviour
             Vector3 playerScale = transform.localScale;
             playerScale.x *= -1;
             transform.localScale = playerScale;
+        }
+    }
+
+    private void FlipColliderWhenTurn()
+    {
+        if (horizontalInput < 0)
+        {
+            leftBoxrefToggle.SetActive(true);
+            leftWallToggle.SetActive(true);
+            rightBoxrefToggle.SetActive(false);
+            rightWallToggle.SetActive(false);
+        }
+        else if (horizontalInput > 0)
+        {
+            leftBoxrefToggle.SetActive(false);
+            leftWallToggle.SetActive(false);
+            rightBoxrefToggle.SetActive(true);
+            rightWallToggle.SetActive(true);
         }
     }
 
