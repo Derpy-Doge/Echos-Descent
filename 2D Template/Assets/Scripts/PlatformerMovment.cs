@@ -1,8 +1,12 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class PlatformerMovement : MonoBehaviour
 {
+    public float dashForce;
+    public float dashDuration;
+    public float dashCooldown;
     public float moveSpeed;
     public float JumpHeight;
     public WallCheckFlip wcf;
@@ -12,6 +16,8 @@ public class PlatformerMovement : MonoBehaviour
 
     public bool isGrounded;
 
+    private bool canDash = true;
+    private bool isDashing = false;
     private bool canJump;
     private bool isFacingRight = true;
 
@@ -50,11 +56,13 @@ public class PlatformerMovement : MonoBehaviour
         {
             Debug.Log("Grounded");
             isGrounded = true;
+            animator.SetBool("isGrounded", true);
         }
         else
         {
             Debug.Log("Not Grounded");
             isGrounded = false;
+            animator.SetBool("isGrounded", false);
         }
 
         if (isGrounded)
@@ -74,6 +82,13 @@ public class PlatformerMovement : MonoBehaviour
         {
             animator.SetBool("isWalking", false);
         }
+
+        if (isDashing)
+        {
+            return;
+        }
+
+       
     }
 
     private bool IsWalled()
@@ -144,19 +159,24 @@ public class PlatformerMovement : MonoBehaviour
             rb2d.linearVelocity = new Vector2(wallJumpDirection * wallJumpPower.x, wallJumpPower.y);
             wallJumpCounter = 0f;
 
+            isFacingRight = !isFacingRight;
+
             if (transform.localScale.x != wallJumpDirection)
             {
-                isFacingRight = !isFacingRight;
-                spriteRenderer.flipX = true;
                 
+                spriteRenderer.flipX = true;
+
                 if (isFacingRight)
                 {
                     wcf.Flip(true);
+                    wcf.BoxFlip(true);
                 }
                 else if (!isFacingRight)
                 {
                     wcf.Flip(false);
+                    wcf.BoxFlip(false);
                 }
+
             }
 
             Invoke(nameof(StopWallJumping), wallJumpingDuration);
@@ -166,5 +186,41 @@ public class PlatformerMovement : MonoBehaviour
     private void StopWallJumping()
     {
         isWallJumping = false;
+    }
+
+    public void Dash(InputAction.CallbackContext ctx)
+    {
+        if (ctx.ReadValue<float>() == 1 && canDash)
+        {
+            StartCoroutine(Dash());
+        }
+    }
+    IEnumerator Dash()
+    {
+        canDash = false;
+        isDashing = true;
+
+        float originalGravity = 4f;
+        Rigidbody2D rb2d = GetComponent<Rigidbody2D>();
+        if (rb2d != null)
+        {
+            originalGravity = rb2d.gravityScale;
+            rb2d.gravityScale = 0f;
+            rb2d.linearVelocity = new Vector2(transform.localScale.x * dashForce, 0f);
+            animator.SetBool("isDashing", true);
+        }
+
+        yield return new WaitForSeconds(dashDuration);
+
+        if(rb2d != null)
+        {
+            rb2d.gravityScale = originalGravity;
+            rb2d.linearVelocity = Vector2.zero;
+            animator.SetBool("isDashing", false);
+        }
+        isDashing = false;
+
+        yield return new WaitForSeconds(dashCooldown);
+        canDash = true;
     }
 }

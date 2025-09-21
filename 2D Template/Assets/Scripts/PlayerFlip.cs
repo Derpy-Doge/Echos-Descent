@@ -6,9 +6,6 @@ public class PlayerFlip : MonoBehaviour
     public BoxCollider2D leftCollider;
     public BoxCollider2D rightCollider;
 
-    public GameObject leftBoxrefToggle;
-    public GameObject rightBoxrefToggle;
-
     void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
@@ -22,9 +19,6 @@ public class PlayerFlip : MonoBehaviour
             leftCollider.enabled = false;
             rightCollider.enabled = true;
         }
-
-        leftBoxrefToggle.SetActive(true);
-        rightBoxrefToggle.SetActive(false);
     }
 
     [SerializeField] 
@@ -37,13 +31,11 @@ public class PlayerFlip : MonoBehaviour
     {
         if (spriteRenderer.flipX)
         {
-            leftCollider.enabled = true;
-            rightCollider.enabled = false;
+            GetComponent<BoxCollider2D>().offset = new Vector2(0.39f, 0.02f);
         }
         else
         {
-            leftCollider.enabled = false;
-            rightCollider.enabled = true;
+            GetComponent<BoxCollider2D>().offset = new Vector2(-0.39f, 0.02f);
         }
 
         
@@ -51,7 +43,6 @@ public class PlayerFlip : MonoBehaviour
         horizontalInput = Input.GetAxis("Horizontal");
 
         SetupDirectionByComponent();
-        FlipColliderWhenTurn();
     }
 
     private void SetupDirectionByScale() // breaks with wall jump
@@ -63,23 +54,7 @@ public class PlayerFlip : MonoBehaviour
             playerScale.x *= -1;
             transform.localScale = playerScale;
         }
-    }
-
-    private void FlipColliderWhenTurn()
-    {
-        if (horizontalInput < 0)
-        {
-            leftBoxrefToggle.SetActive(true);
-            rightBoxrefToggle.SetActive(false);
-        }
-        else if (horizontalInput > 0)
-        {
-            leftBoxrefToggle.SetActive(false);
-            rightBoxrefToggle.SetActive(true);
-        }
-    }
-
-    
+    }  
 
     private void SetupDirectionByComponent()
     {
