@@ -33,7 +33,7 @@ public class PlatformerMovement : MonoBehaviour
     private float wallJumpTime = 0.2f;
     private float wallJumpCounter;
     private float wallJumpingDuration = 0.4f;
-    private Vector2 wallJumpPower = new Vector2(8f, 16f);
+    private Vector2 wallJumpPower = new Vector2(10f, 16f);
 
     private bool isCrawling;
 
@@ -65,9 +65,18 @@ public class PlatformerMovement : MonoBehaviour
             isFacingRight = true;
         }
 
-        rb2d.linearVelocityX = _movement;
+        if (isDashing)
+        {
+            isDashing = rb2d.linearVelocityX != _movement;
+        }
+        else if (!isDashing)
+        {
+            rb2d.linearVelocityX = _movement;
+        }
 
-        Vector2 boxsize = new Vector2(0.502f, 0.05f);
+       
+
+            Vector2 boxsize = new Vector2(0.502f, 0.05f);
         bool overlap = Physics2D.OverlapBox(boxRef.transform.position, boxsize, 0f, LayerMask.GetMask("Grounded"));
         boxRef.transform.localScale = boxsize;
         if (overlap)
@@ -112,6 +121,23 @@ public class PlatformerMovement : MonoBehaviour
             return;
         }
 
+        if(isDashing && isCrawling)
+        {
+            animator.SetBool("isSliding", true);
+        }
+        else
+        {
+            animator.SetBool("isSliding", false);
+        }
+
+        if(!isGrounded && !canJump)
+        {
+            animator.SetBool("isDoubleJumping", true);
+        }
+        else
+        {
+            animator.SetBool("isDoubleJumping", false);
+        }
        
     }
 
@@ -126,7 +152,16 @@ public class PlatformerMovement : MonoBehaviour
         {
             isWallSliding = true;
             animator.SetBool("isWallSliding", true);
-            rb2d.linearVelocityY = Mathf.Clamp(rb2d.linearVelocityY, -wallSlidingSpeed, float.MaxValue);
+            if(isFacingRight)
+            {
+                GetComponent<BoxCollider2D>().offset = new Vector2(-.18f, .26f);
+            }
+            else if (!isFacingRight)
+            {
+                GetComponent<BoxCollider2D>().offset = new Vector2(.18f, .26f);
+            }
+
+                rb2d.linearVelocityY = Mathf.Clamp(rb2d.linearVelocityY, -wallSlidingSpeed, float.MaxValue);
         }
         else
         {
