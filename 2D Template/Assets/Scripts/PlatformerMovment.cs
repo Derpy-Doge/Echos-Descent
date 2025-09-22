@@ -1,4 +1,5 @@
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -11,7 +12,7 @@ public class PlatformerMovement : MonoBehaviour
     public float JumpHeight;
     public WallCheckFlip wcf;
 
-    private Rigidbody2D rb2d;
+    public Rigidbody2D rb2d;
     private float _movement;
 
     public bool isGrounded;
@@ -20,6 +21,7 @@ public class PlatformerMovement : MonoBehaviour
     private bool isDashing = false;
     private bool canJump;
     private bool isFacingRight = true;
+    private float move;
 
     public GameObject boxRef;
 
@@ -45,11 +47,27 @@ public class PlatformerMovement : MonoBehaviour
         rb2d = GetComponent<Rigidbody2D>();
     }
 
+    private void Start()
+    {
+
+    }
+
     void Update()
     {
+        move = Input.GetAxisRaw("Horizontal");
+
+        if(move > 0f)
+        {
+            isFacingRight = false;
+        }
+        else if(move < 0f)
+        {
+            isFacingRight = true;
+        }
+
         rb2d.linearVelocityX = _movement;
 
-        Vector2 boxsize = new Vector2(0.25f, 0.1f);
+        Vector2 boxsize = new Vector2(0.502f, 0.05f);
         bool overlap = Physics2D.OverlapBox(boxRef.transform.position, boxsize, 0f, LayerMask.GetMask("Grounded"));
         boxRef.transform.localScale = boxsize;
         if (overlap)
@@ -73,6 +91,7 @@ public class PlatformerMovement : MonoBehaviour
         WallSlide();
         WallJump();
 
+
         float input = Input.GetAxis("Horizontal");
         if (input != 0)
         {
@@ -81,6 +100,11 @@ public class PlatformerMovement : MonoBehaviour
         else
         {
             animator.SetBool("isWalking", false);
+        }
+
+        if (Input.GetKey(KeyCode.LeftShift) && canDash)
+        {
+            StartCoroutine(Dash());
         }
 
         if (isDashing)
@@ -101,11 +125,13 @@ public class PlatformerMovement : MonoBehaviour
         if (IsWalled() && !isGrounded && rb2d.linearVelocityY < 0)
         {
             isWallSliding = true;
+            animator.SetBool("isWallSliding", true);
             rb2d.linearVelocityY = Mathf.Clamp(rb2d.linearVelocityY, -wallSlidingSpeed, float.MaxValue);
         }
         else
         {
             isWallSliding = false;
+            animator.SetBool("isWallSliding", false);
         }
     }
 
@@ -113,6 +139,7 @@ public class PlatformerMovement : MonoBehaviour
     {
         _movement = ctx.ReadValue<Vector2>().x * moveSpeed;
     }
+
 
     public void Jump(InputAction.CallbackContext ctx)
     {
@@ -128,13 +155,17 @@ public class PlatformerMovement : MonoBehaviour
         if (ctx.ReadValue<float>() == 1)
         {
             isCrawling = true;
+            canJump = false;
             animator.SetBool("isCrawling", true);
+            Vector2 boxsize = new Vector2(1.16f, 0.046f);
             GetComponent<BoxCollider2D>().size = new Vector2(2f, 1f);
         }
         else
         {
             isCrawling = false;
+            canJump = true;
             animator.SetBool("isCrawling", false);
+            Vector2 boxsize = new Vector2(0.502f, 0.05f);
             GetComponent<BoxCollider2D>().size = new Vector2(0.7f, 1.829f);
         }
     }
@@ -188,39 +219,38 @@ public class PlatformerMovement : MonoBehaviour
         isWallJumping = false;
     }
 
-    public void Dash(InputAction.CallbackContext ctx)
-    {
-        if (ctx.ReadValue<float>() == 1 && canDash)
-        {
-            StartCoroutine(Dash());
-        }
-    }
     IEnumerator Dash()
     {
         canDash = false;
+        canJump = false;
         isDashing = true;
 
+        float dashDirection;
         float originalGravity = 4f;
-        Rigidbody2D rb2d = GetComponent<Rigidbody2D>();
-        if (rb2d != null)
+
+        if (isFacingRight)
         {
-            originalGravity = rb2d.gravityScale;
-            rb2d.gravityScale = 0f;
-            rb2d.linearVelocity = new Vector2(transform.localScale.x * dashForce, 0f);
-            animator.SetBool("isDashing", true);
+            dashDirection = -1f;
         }
+        else
+        {
+            dashDirection = 1f;
+        }
+
+        originalGravity = rb2d.gravityScale;
+        rb2d.gravityScale = 0f;
+        rb2d.linearVelocity = new Vector2(dashForce * dashDirection, 0f);
+        animator.SetBool("isDashing", true);
 
         yield return new WaitForSeconds(dashDuration);
-
-        if(rb2d != null)
-        {
-            rb2d.gravityScale = originalGravity;
-            rb2d.linearVelocity = Vector2.zero;
-            animator.SetBool("isDashing", false);
-        }
+        
+        rb2d.gravityScale = originalGravity;
+        rb2d.linearVelocity = Vector2.zero;
+        animator.SetBool("isDashing", false);
         isDashing = false;
 
         yield return new WaitForSeconds(dashCooldown);
         canDash = true;
     }
+
 }

@@ -3,22 +3,9 @@ using UnityEngine;
 
 public class PlayerFlip : MonoBehaviour
 {
-    public BoxCollider2D leftCollider;
-    public BoxCollider2D rightCollider;
 
     void Start()
     {
-        spriteRenderer = GetComponent<SpriteRenderer>();
-        if (spriteRenderer.flipX)
-        {
-            leftCollider.enabled = true;
-            rightCollider.enabled = false;
-        }
-        else
-        {
-            leftCollider.enabled = false;
-            rightCollider.enabled = true;
-        }
     }
 
     [SerializeField] 
