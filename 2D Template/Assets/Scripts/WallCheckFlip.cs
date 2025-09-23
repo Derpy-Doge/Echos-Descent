@@ -14,8 +14,7 @@ public class WallCheckFlip : MonoBehaviour
 
     void Start()
     {
-        transform.position = playerObject.transform.position;
-        transform.position -= position;
+        transform.localPosition = new(-position.x, position.y);
     }
 
     void Update()
@@ -51,31 +50,25 @@ public class WallCheckFlip : MonoBehaviour
     {
         if (directionFlip)
         {
-            transform.position = playerObject.transform.position;
-            transform.position -= position;
+            transform.localPosition = new(-position.x, position.y);
             flipped = false;
         }
         else if (!directionFlip && !flipped)
         {
-            Vector3 xFlip = transform.position;
-            xFlip.x -= -0.3058f*2;
-            transform.position = playerObject.transform.position;
-            transform.position = xFlip;
+            transform.localPosition = position;
             flipped = true;
         }
     }
     
     public void Flip(bool flipDirection)
     {
-       if(flipDirection)
+        if (flipDirection)
         {
-            transform.position = playerObject.transform.position;
-            transform.position -= position;
+            transform.localPosition = new(-position.x, position.y);
         }
-       else if(!flipDirection)
+        else
         {
-            transform.position = playerObject.transform.position;
-            transform.position += position;
+            transform.localPosition = position;
         }
     }
 }

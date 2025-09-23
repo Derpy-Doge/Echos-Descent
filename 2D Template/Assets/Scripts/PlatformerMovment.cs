@@ -20,7 +20,6 @@ public class PlatformerMovement : MonoBehaviour
     private bool canDash = true;
     private bool isDashing = false;
     private bool canJump;
-    private bool isFacingRight = true;
     private float move;
 
     public GameObject boxRef;
@@ -29,11 +28,10 @@ public class PlatformerMovement : MonoBehaviour
     private float wallSlidingSpeed = 2f;
 
     private bool isWallJumping;
-    private float wallJumpDirection;
     private float wallJumpTime = 0.2f;
     private float wallJumpCounter;
     private float wallJumpingDuration = 0.4f;
-    private Vector2 wallJumpPower = new Vector2(10f, 16f);
+    private Vector2 wallJumpPower = new Vector2(15f, 16f);
 
     private bool isCrawling;
 
@@ -58,11 +56,11 @@ public class PlatformerMovement : MonoBehaviour
 
         if(move > 0f)
         {
-            isFacingRight = false;
+            spriteRenderer.flipX = true;
         }
         else if(move < 0f)
         {
-            isFacingRight = true;
+            spriteRenderer.flipX = false;
         }
 
         if (isDashing)
@@ -76,7 +74,7 @@ public class PlatformerMovement : MonoBehaviour
 
        
 
-            Vector2 boxsize = new Vector2(0.502f, 0.05f);
+        Vector2 boxsize = new Vector2(0.502f, 0.05f);
         bool overlap = Physics2D.OverlapBox(boxRef.transform.position, boxsize, 0f, LayerMask.GetMask("Grounded"));
         boxRef.transform.localScale = boxsize;
         if (overlap)
@@ -101,10 +99,12 @@ public class PlatformerMovement : MonoBehaviour
         {
             moveSpeed = 3f;
         }
-        else if (!isCrawling )
+        else if (!isCrawling)
         {
             moveSpeed = 6f;
         }
+
+
 
         WallSlide();
         WallJump();
@@ -140,10 +140,13 @@ public class PlatformerMovement : MonoBehaviour
         if(isDashing && isCrawling)
         {
             animator.SetBool("isSliding", true);
+            animator.SetBool("isCrawling", false);
+            animator.SetBool("isDashing", false);
         }
-        else
+        else if(!isDashing && isCrawling)
         {
             animator.SetBool("isSliding", false);
+            animator.SetBool("isCrawling", true);
         }
 
         if (canDash)
@@ -171,17 +174,22 @@ public class PlatformerMovement : MonoBehaviour
         return Physics2D.OverlapCircle(wallCheck.position, 0.2f, wallLayer);
     }
 
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawWireSphere(wallCheck.position, .2f);
+    }
+
     private void WallSlide()
     {
         if (IsWalled() && !isGrounded && rb2d.linearVelocityY < 0)
         {
             isWallSliding = true;
             animator.SetBool("isWallSliding", true);
-            if(isFacingRight)
+            if(spriteRenderer.flipX)
             {
                 GetComponent<BoxCollider2D>().offset = new Vector2(-.18f, .26f);
             }
-            else if (!isFacingRight)
+            else if (!spriteRenderer.flipX)
             {
                 GetComponent<BoxCollider2D>().offset = new Vector2(.18f, .26f);
             }
@@ -235,7 +243,6 @@ public class PlatformerMovement : MonoBehaviour
         if (isWallSliding)
         {
             isWallJumping = false;
-            wallJumpDirection = -transform.localScale.x;
             wallJumpCounter = wallJumpTime;
             CancelInvoke(nameof(StopWallJumping));
         }
@@ -247,27 +254,20 @@ public class PlatformerMovement : MonoBehaviour
         if (Input.GetButtonDown("Jump") && wallJumpCounter > 0f)
         {
             isWallJumping = true;
-            rb2d.linearVelocity = new Vector2(wallJumpDirection * wallJumpPower.x, wallJumpPower.y);
+            rb2d.linearVelocity = new Vector2(getDirection() * wallJumpPower.x, wallJumpPower.y);
             wallJumpCounter = 0f;
 
-            isFacingRight = !isFacingRight;
+            spriteRenderer.flipX = !spriteRenderer.flipX;
 
-            if (transform.localScale.x != wallJumpDirection)
+            if (spriteRenderer.flipX)
             {
-                
-                spriteRenderer.flipX = true;
-
-                if (isFacingRight)
-                {
-                    wcf.Flip(true);
-                    wcf.BoxFlip(true);
-                }
-                else if (!isFacingRight)
-                {
-                    wcf.Flip(false);
-                    wcf.BoxFlip(false);
-                }
-
+                wcf.Flip(true);
+                wcf.BoxFlip(true);
+            }
+            else if (!spriteRenderer.flipX)
+            {
+                wcf.Flip(false);
+                wcf.BoxFlip(false);
             }
 
             Invoke(nameof(StopWallJumping), wallJumpingDuration);
@@ -279,23 +279,19 @@ public class PlatformerMovement : MonoBehaviour
         isWallJumping = false;
     }
 
+    private float getDirection()
+    {
+        return spriteRenderer.flipX ? 1f : -1f;
+    }
+
     IEnumerator Dash()
     {
         canDash = false;
         canJump = false;
         isDashing = true;
 
-        float dashDirection;
+        float dashDirection = getDirection();
         float originalGravity = 4f;
-
-        if (isFacingRight)
-        {
-            dashDirection = -1f;
-        }
-        else
-        {
-            dashDirection = 1f;
-        }
 
         originalGravity = rb2d.gravityScale;
         rb2d.gravityScale = 0f;
