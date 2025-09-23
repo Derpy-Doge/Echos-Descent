@@ -92,9 +92,18 @@ public class PlatformerMovement : MonoBehaviour
             animator.SetBool("isGrounded", false);
         }
 
-        if (isGrounded)
+        if (isGrounded && !isCrawling)
         {
             canJump = true;
+        }
+
+        if (isCrawling)
+        {
+            moveSpeed = 3f;
+        }
+        else if (!isCrawling )
+        {
+            moveSpeed = 6f;
         }
 
         WallSlide();
@@ -116,6 +125,13 @@ public class PlatformerMovement : MonoBehaviour
             StartCoroutine(Dash());
         }
 
+        if(Input.GetKey(KeyCode.LeftShift) && canDash && isCrawling)
+        {
+            StartCoroutine(Dash());
+            GetComponent<BoxCollider2D>().size = new Vector2(1.8f, 0.65f);
+            GetComponent<BoxCollider2D>().offset = new Vector2(0.24f, -0.13f);
+        }
+
         if (isDashing)
         {
             return;
@@ -130,7 +146,16 @@ public class PlatformerMovement : MonoBehaviour
             animator.SetBool("isSliding", false);
         }
 
-        if(!isGrounded && !canJump)
+        if (canDash)
+        {
+            animator.SetBool("canDash", true);
+        }
+        else if(!canDash)
+        {
+            animator.SetBool("canDash", false);
+        }
+
+        if (!isGrounded && !canJump)
         {
             animator.SetBool("isDoubleJumping", true);
         }
