@@ -16,6 +16,7 @@ public class PlatformerMovement : MonoBehaviour
     private float _movement;
 
     public bool isGrounded;
+    public bool canStand;
 
     private bool canDash = true;
     private bool isDashing = false;
@@ -23,6 +24,7 @@ public class PlatformerMovement : MonoBehaviour
     private float move;
 
     public GameObject boxRef;
+    public GameObject ceilingRef;
 
     private bool isWallSliding;
     private float wallSlidingSpeed = 2f;
@@ -67,7 +69,7 @@ public class PlatformerMovement : MonoBehaviour
         {
             isDashing = rb2d.linearVelocityX != _movement;
         }
-        else if (!isDashing)
+        else
         {
             rb2d.linearVelocityX = _movement;
         }
@@ -99,10 +101,11 @@ public class PlatformerMovement : MonoBehaviour
         {
             moveSpeed = 3f;
         }
-        else if (!isCrawling)
+        else
         {
             moveSpeed = 6f;
         }
+
 
 
 
@@ -137,11 +140,23 @@ public class PlatformerMovement : MonoBehaviour
             return;
         }
 
+        if (isCrawling)
+        {
+            CeilingCheck();
+            if (spriteRenderer.flipX)
+            {
+                wcf.CeilingCheckFlip(true);
+            }
+            else
+            {
+                wcf.CeilingCheckFlip(false);
+            }
+        }
+
         if(isDashing && isCrawling)
         {
             animator.SetBool("isSliding", true);
             animator.SetBool("isCrawling", false);
-            animator.SetBool("isDashing", false);
         }
         else if(!isDashing && isCrawling)
         {
@@ -167,6 +182,23 @@ public class PlatformerMovement : MonoBehaviour
             animator.SetBool("isDoubleJumping", false);
         }
        
+    }
+
+    private void CeilingCheck()
+    {
+        Vector2 ceilingsize = new Vector2(1.626907f, 0.04614706f);
+        bool ovrlap = Physics2D.OverlapBox(ceilingRef.transform.position, ceilingsize, 0f, LayerMask.GetMask("Ceiling"));
+        ceilingRef.transform.localScale = ceilingsize;
+        if (ovrlap)
+        {
+            Debug.Log("Ceiling");
+            canStand = false;
+        }
+        else
+        {
+            Debug.Log("No Ceiling");
+            canStand = true;
+        }
     }
 
     private bool IsWalled()

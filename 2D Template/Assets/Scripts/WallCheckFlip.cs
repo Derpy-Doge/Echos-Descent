@@ -7,6 +7,7 @@ public class WallCheckFlip : MonoBehaviour
 
     private float horizontalInput;
     private bool flipped;
+    private bool flopped;
 
     public Vector3 position = new Vector3(.77f,0f, 0f);
     public GameObject playerObject;
@@ -57,6 +58,20 @@ public class WallCheckFlip : MonoBehaviour
         {
             transform.localPosition = position;
             flipped = true;
+        }
+    }
+
+    public void CeilingCheckFlip(bool directionFlop)
+    {
+        if (directionFlop)
+        {
+            transform.localPosition = new(-position.x, position.y);
+            flopped = false;
+        }
+        else if (!directionFlop && !flopped)
+        {
+            transform.localPosition = position;
+            flopped = true;
         }
     }
     

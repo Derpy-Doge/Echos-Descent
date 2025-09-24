@@ -137,7 +137,7 @@ TextureImporter:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 1025
+        width: 1024
         height: 1024
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -157,10 +157,10 @@ TextureImporter:
       name: background better maybe_1
       rect:
         serializedVersion: 2
-        x: 1253
-        y: 283
-        width: 271
-        height: 453
+        x: 1024
+        y: 0
+        width: 1024
+        height: 1024
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -179,9 +179,9 @@ TextureImporter:
       name: background better maybe_2
       rect:
         serializedVersion: 2
-        x: 1884
+        x: 2048
         y: 0
-        width: 3236
+        width: 1024
         height: 1024
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -197,11 +197,55 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: background better maybe_3
+      rect:
+        serializedVersion: 2
+        x: 3072
+        y: 0
+        width: 1024
+        height: 1024
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 110d183b89abcb640acc1f0e92600596
+      internalID: -1502733820
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: background better maybe_4
+      rect:
+        serializedVersion: 2
+        x: 4096
+        y: 0
+        width: 1024
+        height: 1024
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 93af7016412ecf649bc12647a4583229
+      internalID: 1798061822
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 920c1884f98211a46abb91356cac047b
     internalID: 0
     vertices: []
     indices: 
@@ -210,7 +254,12 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      background better maybe_0: -9012896705866770146
+      background better maybe_1: -7948295277503484252
+      background better maybe_2: -2773849449445208996
+      background better maybe_3: -1502733820
+      background better maybe_4: 1798061822
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
