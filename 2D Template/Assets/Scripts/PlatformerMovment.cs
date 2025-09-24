@@ -20,6 +20,7 @@ public class PlatformerMovement : MonoBehaviour
 
     private bool canDash = true;
     private bool isDashing = false;
+    private bool isSliding = false;
     private bool canJump;
     private float move;
 
@@ -30,10 +31,10 @@ public class PlatformerMovement : MonoBehaviour
     private float wallSlidingSpeed = 2f;
 
     private bool isWallJumping;
-    private float wallJumpTime = 0.2f;
+    public float wallJumpTime = 0.5f;
     private float wallJumpCounter;
     private float wallJumpingDuration = 0.4f;
-    private Vector2 wallJumpPower = new Vector2(15f, 16f);
+    public Vector2 wallJumpPower = new Vector2(15f, 16f);
 
     private bool isCrawling;
 
@@ -69,7 +70,7 @@ public class PlatformerMovement : MonoBehaviour
         {
             isDashing = rb2d.linearVelocityX != _movement;
         }
-        else
+        else if (wallJumpCounter <= 0f && !IsWalled())
         {
             rb2d.linearVelocityX = _movement;
         }
@@ -103,7 +104,7 @@ public class PlatformerMovement : MonoBehaviour
         }
         else
         {
-            moveSpeed = 6f;
+            moveSpeed = 7f;
         }
 
 
@@ -151,17 +152,6 @@ public class PlatformerMovement : MonoBehaviour
             {
                 wcf.CeilingCheckFlip(false);
             }
-        }
-
-        if(isDashing && isCrawling)
-        {
-            animator.SetBool("isSliding", true);
-            animator.SetBool("isCrawling", false);
-        }
-        else if(!isDashing && isCrawling)
-        {
-            animator.SetBool("isSliding", false);
-            animator.SetBool("isCrawling", true);
         }
 
         if (canDash)
@@ -219,11 +209,13 @@ public class PlatformerMovement : MonoBehaviour
             animator.SetBool("isWallSliding", true);
             if(spriteRenderer.flipX)
             {
-                GetComponent<BoxCollider2D>().offset = new Vector2(-.18f, .26f);
+                GetComponent<BoxCollider2D>().offset = new Vector2(0f, .26f);
+                GetComponent<BoxCollider2D>().size = new Vector2(1f, 1.829f);
             }
             else if (!spriteRenderer.flipX)
             {
-                GetComponent<BoxCollider2D>().offset = new Vector2(.18f, .26f);
+                GetComponent<BoxCollider2D>().offset = new Vector2(0f, .26f);
+                GetComponent<BoxCollider2D>().size = new Vector2(1f, 1.829f);
             }
 
                 rb2d.linearVelocityY = Mathf.Clamp(rb2d.linearVelocityY, -wallSlidingSpeed, float.MaxValue);
@@ -243,7 +235,7 @@ public class PlatformerMovement : MonoBehaviour
 
     public void Jump(InputAction.CallbackContext ctx)
     {
-        if (ctx.ReadValue<float>() == 1 && canJump)
+        if (ctx.ReadValue<float>() == 1 && canJump && !isWallSliding)
         {
             rb2d.linearVelocityY = JumpHeight;
             canJump = false;
@@ -259,6 +251,7 @@ public class PlatformerMovement : MonoBehaviour
             animator.SetBool("isCrawling", true);
             Vector2 boxsize = new Vector2(1.16f, 0.046f);
             GetComponent<BoxCollider2D>().size = new Vector2(2f, 1f);
+            GetComponent<BoxCollider2D>().offset = new Vector2(-0.375f, -0.05f);
         }
         else
         {
@@ -267,6 +260,7 @@ public class PlatformerMovement : MonoBehaviour
             animator.SetBool("isCrawling", false);
             Vector2 boxsize = new Vector2(0.502f, 0.05f);
             GetComponent<BoxCollider2D>().size = new Vector2(0.7f, 1.829f);
+            GetComponent<BoxCollider2D>().offset = new Vector2(-0.375f, -0.05f);
         }
     }
 
@@ -275,31 +269,31 @@ public class PlatformerMovement : MonoBehaviour
         if (isWallSliding)
         {
             isWallJumping = false;
-            wallJumpCounter = wallJumpTime;
             CancelInvoke(nameof(StopWallJumping));
         }
-        else
+        
+        if (wallJumpCounter > 0f)
         {
             wallJumpCounter -= Time.deltaTime;
         }
 
-        if (Input.GetButtonDown("Jump") && wallJumpCounter > 0f)
+        if (Input.GetButtonDown("Jump") && isWallSliding)
         {
             isWallJumping = true;
-            rb2d.linearVelocity = new Vector2(getDirection() * wallJumpPower.x, wallJumpPower.y);
-            wallJumpCounter = 0f;
+            rb2d.linearVelocity = new Vector2(wallJumpPower.x * -getDirection(), wallJumpPower.y);
+            wallJumpCounter = wallJumpTime;
 
             spriteRenderer.flipX = !spriteRenderer.flipX;
 
             if (spriteRenderer.flipX)
             {
-                wcf.Flip(true);
-                wcf.BoxFlip(true);
-            }
-            else if (!spriteRenderer.flipX)
-            {
                 wcf.Flip(false);
                 wcf.BoxFlip(false);
+            }
+            else
+            {
+                wcf.Flip(true);
+                wcf.BoxFlip(true);
             }
 
             Invoke(nameof(StopWallJumping), wallJumpingDuration);
@@ -321,6 +315,10 @@ public class PlatformerMovement : MonoBehaviour
         canDash = false;
         canJump = false;
         isDashing = true;
+        if (isCrawling)
+        {
+            isSliding = true;
+        }
 
         float dashDirection = getDirection();
         float originalGravity = 4f;
@@ -329,13 +327,19 @@ public class PlatformerMovement : MonoBehaviour
         rb2d.gravityScale = 0f;
         rb2d.linearVelocity = new Vector2(dashForce * dashDirection, 0f);
         animator.SetBool("isDashing", true);
+        animator.SetBool("isSliding", true);
 
         yield return new WaitForSeconds(dashDuration);
         
         rb2d.gravityScale = originalGravity;
         rb2d.linearVelocity = Vector2.zero;
         animator.SetBool("isDashing", false);
+        animator.SetBool("isSliding",false);
         isDashing = false;
+        if (isCrawling)
+        {
+            isSliding = false;
+        }
 
         yield return new WaitForSeconds(dashCooldown);
         canDash = true;

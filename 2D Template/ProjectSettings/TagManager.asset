@@ -41,6 +41,27 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: endless darkness
+    uniqueID: 3386750181
+    locked: 0
+  - name: far pillars
+    uniqueID: 714534485
+    locked: 0
+  - name: far stalactites
+    uniqueID: 2539801613
+    locked: 0
+  - name: 'close pillar '
+    uniqueID: 2341609599
+    locked: 0
+  - name: close stalactites
+    uniqueID: 3497716157
+    locked: 0
+  - name: Terrain
+    uniqueID: 3186459367
+    locked: 0
+  - name: Echo
+    uniqueID: 2663362241
+    locked: 0
   m_RenderingLayers:
   - Default
   - Light Layer 1
