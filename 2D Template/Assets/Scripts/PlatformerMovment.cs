@@ -66,6 +66,15 @@ public class PlatformerMovement : MonoBehaviour
             spriteRenderer.flipX = false;
         }
 
+        if (isCrawling)
+        {
+            moveSpeed = 4f;
+        }
+        else
+        {
+            moveSpeed = 7f;
+        }
+
         if (isDashing)
         {
             isDashing = rb2d.linearVelocityX != _movement;
@@ -97,18 +106,6 @@ public class PlatformerMovement : MonoBehaviour
         {
             canJump = true;
         }
-
-        if (isCrawling)
-        {
-            moveSpeed = 3f;
-        }
-        else
-        {
-            moveSpeed = 7f;
-        }
-
-
-
 
         WallSlide();
         WallJump();
@@ -250,7 +247,7 @@ public class PlatformerMovement : MonoBehaviour
             canJump = false;
             animator.SetBool("isCrawling", true);
             Vector2 boxsize = new Vector2(1.16f, 0.046f);
-            GetComponent<BoxCollider2D>().size = new Vector2(2f, 1f);
+            GetComponent<BoxCollider2D>().size = new Vector2(2f, .95f);
             GetComponent<BoxCollider2D>().offset = new Vector2(-0.375f, -0.05f);
         }
         else
@@ -260,7 +257,7 @@ public class PlatformerMovement : MonoBehaviour
             animator.SetBool("isCrawling", false);
             Vector2 boxsize = new Vector2(0.502f, 0.05f);
             GetComponent<BoxCollider2D>().size = new Vector2(0.7f, 1.829f);
-            GetComponent<BoxCollider2D>().offset = new Vector2(-0.375f, -0.05f);
+            GetComponent<BoxCollider2D>().offset = new Vector2(-0.375f, 0.02f);
         }
     }
 

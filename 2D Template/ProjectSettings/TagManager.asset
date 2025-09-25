@@ -59,6 +59,9 @@ TagManager:
   - name: Terrain
     uniqueID: 3186459367
     locked: 0
+  - name: TEXT
+    uniqueID: 2638177753
+    locked: 0
   - name: Echo
     uniqueID: 2663362241
     locked: 0
